@@ -191,6 +191,6 @@ func _on_body_entered(body):
 		# 여기에 열쇠 개수를 증가시키는 로직을 추가할 수 있습니다.
 		# 예: var keys_owned = 0; keys_owned += 1
 
-# 임시: 열쇠 개수를 반환하는 함수 (나중에 문 로직에서 사용할 수 있음)
+# 열쇠 개수를 반환하는 함수 (나중에 문 로직에서 사용할 수 있음)
 func get_key_count():
 	return 0
