@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://7swlxwo1phq"]
+
+[ext_resource type="Script" uid="uid://cao58b381n1bp" path="res://Scenes/player.gd" id="1_x3wgy"]
+[ext_resource type="Texture2D" uid="uid://iiy13vextxsq" path="res://tilesets/liquidWaterTop.png" id="2_3smsa"]
+[ext_resource type="Texture2D" uid="uid://dagnnkwibm0tw" path="res://tilesets/stone.png" id="3_8erm5"]
+[ext_resource type="Texture2D" uid="uid://b35ut263mmqv3" path="res://tilesets/cloud1.png" id="4_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://bmtpb3ai0jeo7" path="res://tilesets/keyYellow.png" id="5_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://do550th5idrj5" path="res://tilesets/grass.png" id="6_gymyn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pu2lt"]
+size = Vector2(42, 41.25)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_x3wgy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-1, 1, 40, 1, 40, 40, 0, 40, 0, 1)
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(19, 20)
+target_position = Vector2(35, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 20.375)
+shape = SubResource("RectangleShape2D_pu2lt")
+
+[node name="TransformationSprites" type="Node2D" parent="."]
+
+[node name="WaterSprite" type="Sprite2D" parent="TransformationSprites"]
+visible = false
+position = Vector2(20, 20)
+scale = Vector2(0.542857, 0.528571)
+texture = ExtResource("2_3smsa")
+
+[node name="StoneSprite" type="Sprite2D" parent="TransformationSprites"]
+visible = false
+position = Vector2(20, 20.5)
+scale = Vector2(0.542857, 0.528571)
+texture = ExtResource("3_8erm5")
+
+[node name="CloudSprite" type="Sprite2D" parent="TransformationSprites"]
+visible = false
+position = Vector2(20, 20.625)
+scale = Vector2(0.296875, 0.524648)
+texture = ExtResource("4_f1ek2")
+
+[node name="KeySprite" type="Sprite2D" parent="TransformationSprites"]
+visible = false
+position = Vector2(20, 20.5)
+scale = Vector2(0.542857, 0.528571)
+texture = ExtResource("5_tx1dd")
+
+[node name="GrassSprite" type="Sprite2D" parent="TransformationSprites"]
+visible = false
+position = Vector2(20, 20.5)
+scale = Vector2(0.542857, 0.528571)
+texture = ExtResource("6_gymyn")
