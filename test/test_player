@@ -1,1 +1,40 @@
+extends Node
+
+# 테스트 대상 씬 및 스크립트
+@onready var player = preload("res://player.tscn").instantiate()
+@onready var dummy_tilemap = preload("res://tests/dummy_tilemap.tscn").instantiate()
+
+func _ready():
+	add_child(player)
+	add_child(dummy_tilemap)
+	
+	# RayCast가 더미 타일맵과 충돌하도록 위치 조정
+	player.global_position = Vector2(100, 100)
+	dummy_tilemap.global_position = Vector2(135, 100) # 오른쪽 35픽셀에 맞춤
+	
+	await get_tree().process_frame # 충돌 정보 갱신
+
+	test_copy_block()
+	test_paste_block()
+	test_undo_paste()
+
+	print("✅ 모든 테스트가 완료되었습니다.")
+	get_tree().quit()
+
+func test_copy_block():
+	player.copy_block()
+	assert(player.copied_block_type == "water", "❌ 복사 실패: water 블록이 복사되지 않았습니다.")
+	print("✔ 복사 테스트 통과")
+
+func test_paste_block():
+	player.paste_block()
+	assert(player.water_sprite.visible == true, "❌ 변신 실패: water sprite가 보이지 않습니다.")
+	assert(player.speed == 180.0, "❌ 변신 실패: speed 값이 올바르지 않습니다.")
+	print("✔ 변신 테스트 통과")
+
+func test_undo_paste():
+	player.undo_paste()
+	assert(player.water_sprite.visible == false, "❌ 되돌리기 실패: water sprite가 숨겨지지 않았습니다.")
+	assert(player.speed == player.original_state.speed, "❌ 되돌리기 실패: speed가 초기값으로 복구되지 않았습니다.")
+	print("✔ 되돌리기 테스트 통과")
 
